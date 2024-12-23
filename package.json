@@ -2,37 +2,43 @@
   "name": "github-repo-radar",
   "displayName": "Github repo radar",
   "version": "0.0.1",
-  "description": "A basic Plasmo extension.",
-  "author": "Plasmo Corp. <foss@plasmo.com>",
+  "description": "A browser extension to show GitHub repository information in Google search results",
+  "author": "rainbow",
   "scripts": {
-    "dev": "plasmo dev --verbose",
+    "dev": "plasmo dev",
     "build": "plasmo build",
     "package": "plasmo package"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.62.8",
-    "plasmo": "0.89.4",
+    "plasmo": "0.84.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-use": "^17.6.0"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "4.1.1",
-    "@tailwindcss/forms": "^0.5.9",
-    "@tailwindcss/typography": "^0.5.15",
+    "@plasmohq/prettier-plugin-sort-imports": "4.0.1",
     "@types/chrome": "0.0.258",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.33",
     "prettier": "3.2.4",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^3.4.1",
     "typescript": "5.3.3"
   },
   "manifest": {
     "host_permissions": [
       "https://*/*"
+    ],
+    "permissions": [
+      "tabs"
     ]
+  },
+  "plasmo": {
+    "manifest": {
+      "host_permissions": [
+        "https://*/*"
+      ]
+    }
   }
 }

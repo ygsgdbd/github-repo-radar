@@ -1,7 +1,14 @@
-import type { PlasmoCSConfig } from "plasmo"
+import type { PlasmoCSConfig, PlasmoCSUIProps } from "plasmo"
 import type { FC } from "react"
 import { useState, useEffect } from "react"
 import { githubService, type RepoInfo } from "./services/github"
+import cssText from "data-text:~style.css"
+
+export const getStyle = () => {
+  const style = document.createElement("style")
+  style.textContent = cssText
+  return style
+}
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.google.com/*", "https://www.google.com.hk/*"],
@@ -58,19 +65,15 @@ const formatDate = (dateString: string): string => {
   return `${Math.floor(diffDays / 365)} years ago`
 }
 
-const InfoItem: FC<{
-  icon: string
-  value: string | number
-  color: string
-  tooltip?: string
-}> = ({ icon, value, color, tooltip }) => (
-  <div 
-    className="inline-flex items-center gap-0.5 px-1.5 py-0.5 text-xs cursor-help hover:bg-gray-50 rounded"
-    title={tooltip}
-  >
-    <span className={color}>{icon}</span>
-    <span className="font-medium text-[#555] text-[11px] leading-[13px]">{value}</span>
-  </div>
+const ShieldBadge: FC<{
+  type: string
+  repo: string
+  color?: string
+}> = ({ type, repo, color }) => (
+  <img
+    src={`https://img.shields.io/github/${type}/${repo}?style=flat${color ? `&color=${color}` : ''}`}
+    alt={`${type} count`}
+  />
 )
 
 const TopicTag: FC<{ topic: string }> = ({ topic }) => (
@@ -79,79 +82,61 @@ const TopicTag: FC<{ topic: string }> = ({ topic }) => (
   </span>
 )
 
-const RepoStats: FC<{ url: string }> = ({ url }) => {
-  const [repoInfo, setRepoInfo] = useState<RepoInfo | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+const GoogleSearchContent: FC<PlasmoCSUIProps> = ({ anchor }) => {
+  const [repoPath, setRepoPath] = useState<string>("")
 
   useEffect(() => {
-    let mounted = true
+    const element = anchor.element.closest('.g')
+    const url = element?.getAttribute("data-github-url")
+    if (!url) return
 
-    const fetchData = async () => {
-      try {
-        const data = await githubService.getRepoInfo(url)
-        if (mounted && data) {
-          setRepoInfo(data)
-        }
-      } catch (error) {
-        console.error('Error fetching repo info:', error)
-      } finally {
-        if (mounted) {
-          setIsLoading(false)
-        }
-      }
+    // 从 URL 中提取仓库路径 (owner/repo)
+    const match = url.match(/github\.com\/([^/]+\/[^/]+)/)
+    if (match) {
+      setRepoPath(match[1])
     }
+  }, [anchor])
 
-    fetchData()
-
-    return () => {
-      mounted = false
-    }
-  }, [url])
-
-  if (isLoading || !repoInfo) {
+  if (!repoPath) {
     return null
   }
 
   return (
-    <div className="flex w-full flex-row items-center gap-4">
-      <InfoItem 
-          icon="⭐" 
-          value={formatNumber(repoInfo.stars)} 
-          color="text-amber-500" 
-          tooltip="Stars"
+    <div className="flex w-full flex-col gap-2 mt-1">
+      <div className="flex items-center gap-1 flex-wrap">
+        <ShieldBadge 
+          type="stars"
+          repo={repoPath}
+          color="dfb317"
         />
-        <InfoItem 
-          icon="🍴" 
-          value={formatNumber(repoInfo.forks)} 
-          color="text-gray-500" 
-          tooltip="Forks"
+        <ShieldBadge 
+          type="forks"
+          repo={repoPath}
+          color="97ca00"
         />
-        <InfoItem 
-          icon="👀" 
-          value={formatNumber(repoInfo.watchers)} 
-          color="text-emerald-500" 
-          tooltip="Watchers"
+        <ShieldBadge 
+          type="watchers"
+          repo={repoPath}
+          color="68b7f9"
         />
+        <ShieldBadge 
+          type="languages/top"
+          repo={repoPath}
+          color="007ec6"
+        />
+        <ShieldBadge 
+          type="license"
+          repo={repoPath}
+          color="9c27b0"
+        />
+        <ShieldBadge 
+          type="last-commit"
+          repo={repoPath}
+          color="4c1"
+        />
+      </div>
     </div>
   )
-}
-
-const GoogleSearchContent: FC = () => {
-  const [url, setUrl] = useState<string | null>(null)
-
-  useEffect(() => {
-    const element = document.querySelector("[data-github-info-added='true']")?.closest('.g')
-    const githubUrl = element?.getAttribute("data-github-url")
-    if (githubUrl) {
-      setUrl(githubUrl)
-    }
-  }, [])
-
-  if (!url) {
-    return null
-  }
-
-  return <RepoStats url={url} />
 }
 
 export default GoogleSearchContent
