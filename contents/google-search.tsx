@@ -1,16 +1,11 @@
-import type { PlasmoCSConfig } from "plasmo"
+import type { PlasmoCSConfig, PlasmoRender } from "plasmo"
 import cssText from "data-text:~style.css"
 import { GitHubRepoInfo } from "~components/github-repo-info"
+import { createRoot } from "react-dom/client"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://www.google.com/*", "https://www.google.com.hk/*"],
   world: "MAIN"
-}
-
-export const getStyle = () => {
-  const style = document.createElement("style")
-  style.textContent = cssText
-  return style
 }
 
 export const getInlineAnchorList = () => {
@@ -36,15 +31,35 @@ export const getInlineAnchorList = () => {
     })
 }
 
-const GoogleSearchContent = ({ anchor }) => {
+// 自定义渲染函数
+export const render: PlasmoRender<HTMLElement> = async ({
+  anchor,
+  createRootContainer
+}) => {
   const element = anchor.element
-  if (!element) return null
-
   const url = element.getAttribute("data-github-url")
-  if (!url) return null
+  if (!url) return
 
-  return <GitHubRepoInfo url={url} />
+  // 创建 Shadow Host
+  const host = document.createElement("div")
+  
+  // 创建 Shadow DOM
+  const shadow = host.attachShadow({ mode: "open" })
+  
+  // 添加样式
+  const style = document.createElement("style")
+  style.textContent = cssText
+  shadow.appendChild(style)
+  
+  // 将 host 添加到搜索结果中
+  element.appendChild(host)
+
+  // 直接在 shadow root 中渲染组件
+  const root = createRoot(shadow)
+  root.render(<GitHubRepoInfo url={url} />)
 }
 
+// 这个组件不会被使用，因为我们使用了自定义渲染
+const GoogleSearchContent = () => null
 export default GoogleSearchContent
 

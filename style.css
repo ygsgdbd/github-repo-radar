@@ -2,28 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
 @layer components {
-  .repo-info {
-    @apply flex w-full flex-row items-center gap-4 mt-1;
-  }
-
-  .info-group {
-    @apply flex items-center gap-2;
-  }
-
-  .info-item {
-    @apply inline-flex items-center gap-0.5 px-1.5 py-0.5 text-xs cursor-help hover:bg-gray-50 rounded;
-  }
-
-  .info-text {
-    @apply font-medium text-[#555] text-[11px] leading-[13px];
-  }
-
-  .topic-tag {
-    @apply px-1.5 py-0.5 text-[10px] text-blue-600 bg-blue-50 rounded-full;
-  }
-
-  .topic-count {
-    @apply text-[10px] text-gray-500;
+  .github-repo-info {
+    @apply text-sm text-gray-600;
   }
 }
