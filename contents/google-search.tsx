@@ -26,6 +26,13 @@ export const getInlineAnchorList = () => {
     const link = element.querySelector("a")
     if (!link?.href?.includes("github.com")) return
 
+    if (link.href.includes('/topics/') || 
+        link.href.includes('/trending/') ||
+        link.href.includes('/search')) return
+
+    const match = link.href.match(/github\.com\/([^/]+\/[^/]+)(?:\/|$)/)
+    if (!match) return
+
     element.setAttribute("data-github-info-added", "true")
     element.setAttribute("data-github-url", link.href)
 

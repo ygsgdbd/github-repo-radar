@@ -1,11 +1,11 @@
 {
   "name": "github-repo-radar",
-  "displayName": "Github repo radar",
+  "displayName": "GitHub Repo Radar",
   "version": "0.0.1",
-  "description": "A browser extension to show GitHub repository information in Google search results",
+  "description": "Enhance your GitHub repository search experience by displaying repository information directly in Google search results, including stars, forks, language, license and last commit.",
   "author": "rainbow",
   "scripts": {
-    "dev": "plasmo dev",
+    "dev": "plasmo dev --verbose",
     "build": "plasmo build",
     "package": "plasmo package"
   },
@@ -28,18 +28,21 @@
     "typescript": "5.3.3"
   },
   "manifest": {
+    "name": "GitHub Repo Radar",
+    "description": "Enhance your GitHub repository search experience by displaying repository information directly in Google search results.",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "icons": {
+      "16": "/assets/icon16.png",
+      "32": "/assets/icon32.png",
+      "48": "/assets/icon48.png",
+      "128": "/assets/icon128.png"
+    },
     "host_permissions": [
       "https://*/*"
     ],
     "permissions": [
       "tabs"
     ]
-  },
-  "plasmo": {
-    "manifest": {
-      "host_permissions": [
-        "https://*/*"
-      ]
-    }
   }
 }
