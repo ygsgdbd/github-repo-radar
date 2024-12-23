@@ -69,12 +69,45 @@ const ShieldBadge: FC<{
   type: string
   repo: string
   color?: string
-}> = ({ type, repo, color }) => (
-  <img
-    src={`https://img.shields.io/github/${type}/${repo}?style=flat${color ? `&color=${color}` : ''}`}
-    alt={`${type} count`}
-  />
-)
+}> = ({ type, repo, color }) => {
+  const getUrl = () => {
+    const baseUrl = `https://github.com/${repo}`
+    switch (type) {
+      case 'stars':
+        return `${baseUrl}/stargazers`
+      case 'forks':
+        return `${baseUrl}/network/members`
+      case 'watchers':
+        return `${baseUrl}/watchers`
+      case 'languages/top':
+        return `${baseUrl}/search?l=language`
+      case 'license':
+        return `${baseUrl}/blob/master/LICENSE`
+      case 'last-commit':
+        return `${baseUrl}/commits`
+      default:
+        return baseUrl
+    }
+  }
+
+  const getShieldUrl = () => {
+    const baseUrl = `https://img.shields.io/github/${type}/${repo}?style=flat`
+    if (color) {
+      return `${baseUrl}&color=${color}`
+    }
+    return baseUrl
+  }
+
+  return (
+    <a href={getUrl()} target="_blank" rel="noopener noreferrer">
+      <img
+        src={getShieldUrl()}
+        alt={`${type} count`}
+        style={{ cursor: 'pointer' }}
+      />
+    </a>
+  )
+}
 
 const TopicTag: FC<{ topic: string }> = ({ topic }) => (
   <span className="px-1.5 py-0.5 text-[10px] text-blue-600 bg-blue-50 rounded-full">
