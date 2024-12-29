@@ -7,7 +7,7 @@ function IndexPopup() {
         GitHub Repo Radar
       </h2>
       <p className="text-sm text-gray-600 leading-relaxed mb-3">
-        在 Google 搜索结果中显示 GitHub 仓库的详细信息。
+        Display GitHub repository details directly in Google search results.
       </p>
       <div className="text-xs text-gray-600">
         <a 

@@ -1,7 +1,7 @@
 {
   "name": "github-repo-radar",
   "displayName": "GitHub Repo Radar",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Enhance your GitHub repository search experience by displaying repository information directly in Google search results, including stars, forks, language, license and last commit.",
   "author": "rainbow",
   "scripts": {
@@ -39,10 +39,7 @@
       "128": "/assets/icon128.png"
     },
     "host_permissions": [
-      "https://*/*"
-    ],
-    "permissions": [
-      "tabs"
+      "https://*.google.com/*"
     ]
   }
 }
