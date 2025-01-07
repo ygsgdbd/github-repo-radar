@@ -1,7 +1,7 @@
 # GitHub Repo Radar <img src="assets/icon.svg" alt="GitHub Repo Radar Logo" width="32" height="32" align="right" />
 
-[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/github-repo-radar)](https://chrome.google.com/webstore/detail/github-repo-radar)
-[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/github-repo-radar)](https://chrome.google.com/webstore/detail/github-repo-radar)
+[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/ahagjhfplmcmjcokpcicegacliahfckb)](https://chrome.google.com/webstore/detail/ahagjhfplmcmjcokpcicegacliahfckb)
+[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/ahagjhfplmcmjcokpcicegacliahfckb)](https://chrome.google.com/webstore/detail/ahagjhfplmcmjcokpcicegacliahfckb)
 [![GitHub License](https://img.shields.io/github/license/ygsgdbd/github-repo-radar)](https://github.com/ygsgdbd/github-repo-radar/blob/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ygsgdbd/github-repo-radar/pulls)
 
@@ -37,7 +37,9 @@ A Chrome extension that enhances your GitHub repository search experience by dis
 
 ## Installation
 
-> ⚠️ This extension is currently under review by the Chrome Web Store. Once approved, you'll be able to install it directly from there.
+### Chrome Web Store
+1. Visit [GitHub Repo Radar](https://chrome.google.com/webstore/detail/ahagjhfplmcmjcokpcicegacliahfckb) on Chrome Web Store
+2. Click "Add to Chrome" to install
 
 ### Manual Installation
 1. Clone this repository
